@@ -1,8 +1,13 @@
 
 namespace com.logaligroup;
 
-entity Products {
-    key ID           : Int16;
+using {
+    cuid,
+    managed,
+    sap.common.CodeList
+} from '@sap/cds/common';
+
+entity Products : cuid, managed {
         Product      : String(80);
         Description  : String(1255);
         Category     : String;
@@ -10,4 +15,7 @@ entity Products {
         Availibality : String;
         Rating       : Double;
         Price        : Decimal(2, 2);
+};
+
+entity VH_Categories : cuid, CodeList {
 };
