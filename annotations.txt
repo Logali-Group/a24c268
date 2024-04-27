@@ -1,0 +1,15 @@
+#List Report Page
+Filtros compactos           --> @UI.SelectionFields
+Filtro inteligentes         --> @Common.ValueList
+Tabla                       --> @UI.LineItem
+Ancho Estático              --> @HTML5.CssDefaults
+Rating                      --> @UI.DataPoint
+Encabezado de la Tabla      --> @UI.HeaderInfo
+                            --> @UI.Criticality
+
+
+#Object Page
+                            --> @UI.Identification
+                            --> @UI.FielGroup
+                            --> @UI.Facets
+                            --> @UI.HeaderFacets
