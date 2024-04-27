@@ -1,4 +1,3 @@
-
 namespace com.logaligroup;
 
 using {
@@ -7,15 +6,37 @@ using {
     sap.common.CodeList
 } from '@sap/cds/common';
 
-entity Products : cuid, managed {
-        Product      : String(80);
-        Description  : String(1255);
-        Category     : String;
-        SubCategory  : String;
-        Availibality : String;
-        Rating       : Double;
-        Price        : Decimal(2, 2);
+entity Suppliers : cuid, managed {
+    Supplier     : String(200);
+    SupplierName : String(80);
+    WebAddress   : String(255);
 };
 
-entity VH_Categories : cuid, CodeList {
+entity Contacts : cuid {
+    FullName    : String(80);
+    Email       : String(80);
+    PhoneNumber : String(12);
+    Supplier    : Association to Suppliers;
 };
+
+entity Products : cuid, managed {
+    Product      : String(80);
+    Description  : String(1255);
+    Category     : String;
+    SubCategory  : String;
+    Availibality : String;
+    Rating       : Double;
+    Price        : Decimal(10, 2);
+    Supplier     : Association to Suppliers;
+};
+
+entity Details : cuid {
+    Unit   : String(20);
+    Height : Decimal(10, 2);
+    Width  : Decimal(10, 2);
+    Depth  : Decimal(10, 2);
+    Weight : Decimal(10, 2);
+    Product: Association to Products;
+};
+
+entity VH_Categories : cuid, CodeList {};
