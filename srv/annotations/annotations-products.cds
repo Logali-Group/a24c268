@@ -2,6 +2,8 @@ using {ServiceCatalog as call} from '../service';
 
 using from './annotations-suppliers';
 using from './annotations-details';
+using from './annotations-reviews';
+using from './annotations-stock';
 
 annotate call.ProductsSet with {
     Category @Common: {
@@ -179,22 +181,38 @@ annotate call.ProductsSet with @(
         {
             $Type : 'UI.CollectionFacet',
             Facets : [
-                {
-                    $Type : 'UI.ReferenceFacet',
-                    Target : 'Supplier/@UI.FieldGroup#Supplier',
-                    Label : 'Information',
-                },
-                {
-                    $Type : 'UI.ReferenceFacet',
-                    Target : 'Supplier/Contact/@UI.FieldGroup#Contacts',
-                    Label : 'Contact Person'
-                },
+                    {
+                        $Type : 'UI.CollectionFacet',
+                        Facets : [
+                            {
+                                $Type : 'UI.ReferenceFacet',
+                                Target : 'Supplier/@UI.FieldGroup#Supplier',
+                                Label : 'Information',
+                            },
+                            {
+                                $Type : 'UI.ReferenceFacet',
+                                Target : 'Supplier/Contact/@UI.FieldGroup#Contacts',
+                                Label : 'Contact Person'
+                            },
+                        ],
+                        Label : 'Supplier Information',
+                    },
             ],
-            Label : 'Supplier Information',
         },
-        // {
-        //     $Type : 'UI.ReferenceFacet',
-        //     Target : 'Detail/@UI.Fieldgroup#Details',
-        // },
+        {
+            $Type : 'UI.ReferenceFacet',
+            Target : 'Details/@UI.FieldGroup#Details',
+            Label : 'Product Information',
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            Target : 'ToReviews/@UI.LineItem',
+            Label : 'Reviews',
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            Target : 'ToStock/@UI.LineItem',
+            Label : 'Inventory Information',
+        },
     ]
 );

@@ -5,7 +5,7 @@ annotate call.DetailsSet with {
     Width  @title: 'Width';
     Depth  @title: 'Depth';
     Weight @title: 'Weight';
-    Unit   @title: 'Base Unit';
+    BaseUnit   @title: 'Base Unit';
 };
 
 annotate call.DetailsSet with @(
@@ -14,7 +14,7 @@ annotate call.DetailsSet with @(
         Data : [
             {
                 $Type : 'UI.DataField',
-                Value : Unit,
+                Value : BaseUnit,
             },
             {
                 $Type : 'UI.DataField',
