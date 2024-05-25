@@ -249,7 +249,7 @@ annotate call.ProductsSet with @(
                                 Label : 'Contact Person'
                             },
                         ],
-                        Label : 'Supplier Information'
+                        Label : 'Supplier Information',
                     },
             ],
         },

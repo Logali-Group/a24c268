@@ -16,6 +16,7 @@ annotate call.SuppliersSet with {
 };
 
 
+
 annotate call.SuppliersSet with @(
     UI.FieldGroup #Supplier: {
     $Type: 'UI.FieldGroupType',
@@ -32,5 +33,5 @@ annotate call.SuppliersSet with @(
             $Type: 'UI.DataField',
             Value: WebAddress,
         },
-    ],
+    ]
 });
