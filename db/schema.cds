@@ -20,7 +20,7 @@ entity Contacts : cuid {
 };
 
 entity Products : cuid, managed {
-        ImageUrl     : String(600) @UI.IsImageURL;
+        ImageUrl     : LargeBinary @UI.IsImage @Core.MediaType: 'image/jpg';
     key Code         : String(7);
         Product      : String(80);
         Accessory    : String(80);
@@ -37,9 +37,8 @@ entity Products : cuid, managed {
 
         @Common.IsCurrency
         Unit         : String(3) default 'USD';
-        Supplier     : Association to Suppliers;
-        Details      : Association to Details
-                           on Details.Product = $self;
+        Supplier     : Association to Suppliers; //Supplier_ID
+        Details      : Composition of Details;
         ToReviews    : Composition of many Reviews
                            on ToReviews.Product = $self;
         ToStock      : Composition of many Stock
@@ -47,7 +46,7 @@ entity Products : cuid, managed {
 };
 
 entity Reviews : cuid, managed {
-    Rating     : Decimal(2, 2);
+    Rating     : Decimal(4, 2);
     Date       : Date;
     User       : String;
     ReviewText : String;
@@ -57,27 +56,26 @@ entity Reviews : cuid, managed {
 
 entity Stock : cuid, managed {
     StockNumber : String;
-    Department  : String;
+    Department  : Association to VH_Departments;
     Min         : Decimal(10, 2);
     Max         : Decimal(10, 2);
     Value       : Decimal(10, 2);
     LotSize     : Decimal(10, 2) @Measures.Unit: UnitMeasure;
     Quantity    : Decimal(10, 2) @Measures.Unit: UnitMeasure;
-    UnitMeasure : String(20)     @Common.IsUnit;
+    UnitMeasure : String(20)     @Common.IsUnit default 'EA';
     Product     : Association to Products; // Almacena el ID del producto Product_ID Product_Code
                   //Composition of Products; // Almacena el ID del producto
 };
 
 
 entity Details : cuid {
-    BaseUnit   : String(20);
+    BaseUnit   : String(20) default 'EA';
     Height     : Decimal(10, 2)         @Measures.Unit: VolumeUnit;
     Width      : Decimal(10, 2)         @Measures.Unit: VolumeUnit;
     Depth      : Decimal(10, 2)         @Measures.Unit: VolumeUnit;
     VolumeUnit : String(2) default 'CM' @Common.IsUnit;
     Weight     : Decimal(10, 2)         @Measures.Unit: WeightUnit;
     WeightUnit : String default 'KG'    @Common.IsUnit;
-    Product    : Association to Products;
 };
 
 
@@ -96,4 +94,8 @@ entity VH_Status : CodeList {
             NotInStock      = 'Not in stock';
             LowAvailability = 'Low availability';
         };
+};
+
+entity VH_Departments: cuid {
+    Department: String;
 };

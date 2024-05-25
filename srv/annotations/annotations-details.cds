@@ -5,7 +5,9 @@ annotate call.DetailsSet with {
     Width  @title: 'Width';
     Depth  @title: 'Depth';
     Weight @title: 'Weight';
-    BaseUnit   @title: 'Base Unit';
+    BaseUnit   @title: 'Base Unit' @Common.FieldControl: #ReadOnly;
+    VolumeUnit @Common.FieldControl: #ReadOnly;
+    WeightUnit @Common.FieldControl: #ReadOnly;
 };
 
 annotate call.DetailsSet with @(

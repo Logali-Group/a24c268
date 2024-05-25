@@ -5,14 +5,58 @@ using from './annotations-details';
 using from './annotations-reviews';
 using from './annotations-stock';
 
+annotate call.ProductsSet with @odata.draft.enabled;
+
 annotate call.ProductsSet with {
     Category @Common: {
         Text : Category.name,
         TextArrangement : #TextOnly,
+        ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'VH_CategoriesSet',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : Category_ID,
+                    ValueListProperty : 'ID',
+                },
+            ],
+        },
     };
     SubCategory @Common: {
         Text :SubCategory.name,
         TextArrangement : #TextOnly,
+        ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'VH_SubCategories',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterIn',
+                    LocalDataProperty : Category_ID,
+                    ValueListProperty : 'Category_ID',
+                },
+                {
+                    $Type : 'Common.ValueListParameterOut',
+                    LocalDataProperty : SubCategory_ID,
+                    ValueListProperty : 'ID',
+                },
+            ],
+        },
+    };
+    Supplier @Common:{
+        Text : Supplier.SupplierName,
+        TextArrangement : #TextOnly,
+        ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'SuppliersSet',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : Supplier_ID,
+                    ValueListProperty : 'ID',
+                },
+            ],
+        },
     }
 };
 
@@ -26,9 +70,19 @@ annotate call.ProductsSet with {
     Rating       @title: 'Average Rating';
     Price        @title: 'Price per Unit';
     Supplier     @title: 'Supplier';
+    Unit @Common.FieldControl: #ReadOnly;
 };
 
 annotate call.ProductsSet with @(
+    Common.SideEffects  : {
+        $Type : 'Common.SideEffectsType',
+        SourceProperties : [
+            Supplier_ID
+        ],
+        TargetEntities : [
+            Supplier
+        ],
+    },
     UI.SelectionFields: [
         Supplier_ID,
         Category_ID
@@ -117,7 +171,7 @@ annotate call.ProductsSet with @(
             },
             {
                 $Type : 'UI.DataField',
-                Value : Supplier.SupplierName,
+                Value : Supplier_ID,
             },
         ],
     },
@@ -195,7 +249,7 @@ annotate call.ProductsSet with @(
                                 Label : 'Contact Person'
                             },
                         ],
-                        Label : 'Supplier Information',
+                        Label : 'Supplier Information'
                     },
             ],
         },

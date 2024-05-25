@@ -8,7 +8,16 @@ annotate call.SuppliersSet with {
     WebAddress   @title: 'Web Address'
 };
 
-annotate call.SuppliersSet with @(UI.FieldGroup #Supplier: {
+annotate call.SuppliersSet with {
+    ID @title : 'Supplier' @Common:{
+        Text : SupplierName,
+        TextArrangement : #TextOnly,
+    }
+};
+
+
+annotate call.SuppliersSet with @(
+    UI.FieldGroup #Supplier: {
     $Type: 'UI.FieldGroupType',
     Data : [
         {

@@ -1,7 +1,7 @@
 using {ServiceCatalog as call} from '../service';
 
 annotate call.VH_CategoriesSet with {
-    ID @Common: {
+    ID  @title:'Category' @Common: {
         Text : name,
         TextArrangement : #TextOnly,
     }
